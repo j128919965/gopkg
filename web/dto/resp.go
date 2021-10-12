@@ -1,6 +1,6 @@
 package advice
 
-import "gopkg/errors"
+import "github.com/j128919965/gopkg/errors"
 
 type ApiResponse struct {
 	Message string `json:"message,omitempty"`

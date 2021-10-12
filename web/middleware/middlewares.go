@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"gopkg/web/advice"
-	resp "gopkg/web/dto"
+	"github.com/j128919965/gopkg/web/advice"
+	resp "github.com/j128919965/gopkg/web/dto"
 	"net/http"
 )
 

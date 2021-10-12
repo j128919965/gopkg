@@ -2,8 +2,8 @@ package advice
 
 import (
 	"encoding/json"
-	"gopkg/errors"
-	resp "gopkg/web/dto"
+	"github.com/j128919965/gopkg/errors"
+	resp "github.com/j128919965/gopkg/web/dto"
 	"net/http"
 )
 
