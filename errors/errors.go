@@ -10,7 +10,7 @@ func (e *BizError) Error() string {
 	return e.Msg
 }
 
-var NotFound = &BizError{
+var notFound = &BizError{
 	Code: 404,
 	Msg:  "未找到该记录",
 }
@@ -27,5 +27,19 @@ func Wrap(cause error, msg string, code int) error {
 		Msg:   msg,
 		Code:  code,
 		Cause: cause,
+	}
+}
+
+func NotFound() *BizError {
+	return notFound
+}
+
+func IllIllegalArgument(error error) *BizError {
+	if err,ok:=error.(*BizError) ;ok{
+		return err
+	}
+	return &BizError{
+		Msg: error.Error(),
+		Code: 400,
 	}
 }
