@@ -7,7 +7,10 @@ type BizError struct {
 }
 
 func (e *BizError) Error() string {
-	return e.Msg
+	if e.Cause == nil {
+		return e.Msg
+	}
+	return e.Msg + "; 原因：" + e.Cause.Error()
 }
 
 var notFound = &BizError{
@@ -15,7 +18,7 @@ var notFound = &BizError{
 	Msg:  "未找到该记录",
 }
 
-func New(message string,code int) error {
+func New(message string, code int) error {
 	return &BizError{
 		Msg:  message,
 		Code: code,
@@ -35,11 +38,11 @@ func NotFound() *BizError {
 }
 
 func IllIllegalArgument(error error) *BizError {
-	if err,ok:=error.(*BizError) ;ok{
+	if err, ok := error.(*BizError); ok {
 		return err
 	}
 	return &BizError{
-		Msg: error.Error(),
+		Msg:  error.Error(),
 		Code: 400,
 	}
 }
