@@ -10,7 +10,7 @@ import (
 func HandleResult(w http.ResponseWriter, result interface{}, err error) {
 	if err!=nil {
 		if err,ok:=err.(*errors.BizError);ok {
-			WriteJson(w,err.Code,resp.BizFailure(err))
+			WriteJson(w,400,resp.BizFailure(err))
 			return
 		}
 		WriteJson(w,500,resp.ErrFailure(err))

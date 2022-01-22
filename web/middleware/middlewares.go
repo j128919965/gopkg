@@ -21,8 +21,8 @@ func ErrorHandler(next http.HandlerFunc) http.HandlerFunc  {
 
 func AuthHandler(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, request *http.Request) {
-		userId := request.Context().Value("userId")
-		if userId!=nil {
+		tag := request.Context().Value("queTag")
+		if tag!=nil {
 			payload, err := security.NewPayLoadFromJsonContext(request.Context())
 			if err != nil {
 				advice.HandleError(w,err)
