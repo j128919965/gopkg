@@ -1,4 +1,4 @@
-package advice
+package resp
 
 import "github.com/j128919965/gopkg/errors"
 
@@ -13,13 +13,12 @@ func Success(data interface{}) *ApiResponse {
 }
 
 func BizFailure(err *errors.BizError) *ApiResponse {
-	return &ApiResponse{Data: nil,Message: err.Msg ,Success: false}
+	return &ApiResponse{Data: err.Code,Message: err.Error() ,Success: false}
 }
 
 func ErrFailure(err error) *ApiResponse {
 	return &ApiResponse{Success: false,Message: err.Error()}
 }
-
 
 func MsgFailure(msg string) *ApiResponse {
 	return &ApiResponse{Success: false,Message: msg}
