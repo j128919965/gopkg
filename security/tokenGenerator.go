@@ -18,7 +18,7 @@ func NewTokenGenerator(acKey, rfKey string) *TokenGenerator {
 	}
 }
 
-func(generator *TokenGenerator) GenerateTokens(userId int64, role int32,refreshed int32) (*Tokens,error) {
+func(generator *TokenGenerator) GenerateTokens(userId uint64, role int32,refreshed int32) (*Tokens,error) {
 	tokens := &Tokens{}
 	signMethod := jwt.SigningMethodHS256
 	now := time.Now()

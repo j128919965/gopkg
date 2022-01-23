@@ -21,6 +21,7 @@ func HandleResult(w http.ResponseWriter, result interface{}, err error) {
 			if idx >= 0{
 				idx += 7
 				WriteJson(w,400,resp.MsgFailure(str[idx:]))
+				return
 			}
 		}
 		WriteJson(w,500,resp.ErrFailure(err))

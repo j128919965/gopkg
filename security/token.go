@@ -11,7 +11,7 @@ var defaultMaxCount int32 = 5
 
 type PayLoad struct {
 	QueTag    struct{} `json:"queTag"`
-	UserId    int64    `json:"userId"`
+	UserId    uint64    `json:"userId"`
 	Expired   int64    `json:"expired"`
 	Role      int32    `json:"role"`
 	Refreshed int32    `json:"refreshed"`
@@ -35,7 +35,7 @@ func (p *PayLoad) Valid() error {
 }
 
 func NewPayLoadFromJsonContext(ctx context.Context) (*PayLoad, error) {
-	uid, err := strconv.ParseInt(ctx.Value("userId").(json.Number).String(), 10, 64)
+	uid, err := strconv.ParseUint(ctx.Value("userId").(json.Number).String(), 10, 64)
 	if err != nil {
 		return nil, ErrWrongToken
 	}
