@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-var mobileReg = regexp.MustCompile(`(?:0|86|\\+86)?1[3-9]\\d{9}`)
+var mobileReg = regexp.MustCompile(`(?:0|86|\+86)?1[3-9]\d{9}`)
 
 var emailReg = regexp.MustCompile(`\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*`)
 
