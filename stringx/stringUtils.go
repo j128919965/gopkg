@@ -1,6 +1,8 @@
 package stringx
 
 import (
+	"database/sql"
+	"math/rand"
 	"regexp"
 	"strings"
 )
@@ -55,4 +57,17 @@ func IsWebSite(str *string) bool {
 	return !IsBlank(str) && websiteReg.MatchString(*str)
 }
 
+func GenerateNumCode(length int) string{
+	arr := make([]byte,length)
+	for i := 0; i < length; i++ {
+		arr[i] = byte(rand.Intn(10)+'0')
+	}
+	return string(arr)
+}
 
+func NullStringToPtr(v sql.NullString) *string {
+	if v.Valid {
+		return &v.String
+	}
+	return nil
+}
