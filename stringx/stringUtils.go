@@ -2,6 +2,8 @@ package stringx
 
 import (
 	"database/sql"
+	"fmt"
+	"golang.org/x/crypto/scrypt"
 	"math/rand"
 	"regexp"
 	"strings"
@@ -70,4 +72,9 @@ func NullStringToPtr(v sql.NullString) *string {
 		return &v.String
 	}
 	return nil
+}
+
+func Encrypt(salt, str string) string {
+	dk, _ := scrypt.Key([]byte(str), []byte(salt), 32768, 8, 1, 32)
+	return fmt.Sprintf("%x", string(dk))
 }
