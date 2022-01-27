@@ -24,7 +24,7 @@ func (p *PayLoad) Valid() error {
 		return ErrWrongToken
 	}
 
-	if now < p.Expired {
+	if now > p.Expired {
 		if p.Refreshed < defaultMaxCount {
 			return ErrNeedFresh
 		}
