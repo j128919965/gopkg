@@ -37,3 +37,7 @@ func (parser *TokenParser) Parse(token string , key []byte) (*PayLoad , error) {
 
 	return pl,nil
 }
+
+func (p *TokenParser) ParseRefreshToken(refreshToken string) (*PayLoad , error) {
+	return p.Parse(refreshToken,p.rfKey)
+}

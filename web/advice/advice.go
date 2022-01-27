@@ -34,8 +34,12 @@ func HandleError(w http.ResponseWriter, err error) {
 	HandleResult(w,nil,err)
 }
 
+var contentType = "Content-Type"
+var applicationJson = "application/json"
+
 func WriteJson(w http.ResponseWriter,code int,data interface{})  {
 	w.WriteHeader(code)
+	w.Header().Set(contentType, applicationJson)
 	bytes, _ := json.Marshal(data)
 	w.Write(bytes)
 }
