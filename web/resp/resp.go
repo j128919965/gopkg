@@ -1,6 +1,10 @@
 package resp
 
-import "github.com/j128919965/gopkg/errors"
+import (
+	"fmt"
+	"github.com/j128919965/gopkg/errors"
+	"golang.org/x/crypto/scrypt"
+)
 
 type ApiResponse struct {
 	Message string `json:"message,omitempty"`
@@ -22,4 +26,9 @@ func ErrFailure(err error) *ApiResponse {
 
 func MsgFailure(msg string) *ApiResponse {
 	return &ApiResponse{Success: false,Message: msg}
+}
+
+func Encrypt(salt, str string) string {
+	dk, _ := scrypt.Key([]byte(str), []byte(salt), 32768, 8, 1, 32)
+	return fmt.Sprintf("%x", string(dk))
 }

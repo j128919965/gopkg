@@ -12,7 +12,7 @@ import (
 func HandleResult(w http.ResponseWriter, result interface{}, err error) {
 	if err!=nil {
 		if err,ok:=err.(*errors.BizError);ok {
-			WriteJson(w,400,resp.BizFailure(err))
+			WriteJson(w,200,resp.BizFailure(err))
 			return
 		}
 		if stringx.StartsWith(err.Error(), "rpc error:") {
@@ -20,7 +20,7 @@ func HandleResult(w http.ResponseWriter, result interface{}, err error) {
 			idx := strings.Index(str,"desc = ")
 			if idx >= 0{
 				idx += 7
-				WriteJson(w,400,resp.MsgFailure(str[idx:]))
+				WriteJson(w,200,resp.MsgFailure(str[idx:]))
 				return
 			}
 		}
