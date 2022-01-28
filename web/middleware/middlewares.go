@@ -31,7 +31,7 @@ func AuthHandler(next http.HandlerFunc) http.HandlerFunc {
 				advice.HandleError(w,err)
 				return
 			}
-			request.WithContext(context.WithValue(request.Context(),"payload",payload))
+			request = request.WithContext(context.WithValue(request.Context(),"payload",payload))
 		}
 		next(w,request)
 	}
