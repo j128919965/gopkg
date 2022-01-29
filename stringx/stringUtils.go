@@ -3,6 +3,7 @@ package stringx
 import (
 	"database/sql"
 	"fmt"
+	"github.com/j128919965/gopkg/errors"
 	"golang.org/x/crypto/scrypt"
 	"math/rand"
 	"regexp"
@@ -83,9 +84,9 @@ func Encrypt(salt, str string) string {
 	return fmt.Sprintf("%x", string(dk))
 }
 
-func ValidPassword(password string) bool {
+func ValidPassword(password string) error {
 	if len(password) < 6 {
-		return false
+		return errors.New("密码太短（长度不能小于6）",400)
 	}
 	var hasNumber, hasUpperCase, hasLowercase bool
 	for _, c := range password {
@@ -98,5 +99,14 @@ func ValidPassword(password string) bool {
 			hasLowercase = true
 		}
 	}
-	return hasNumber && hasUpperCase && hasLowercase
+	if !hasNumber {
+		return errors.New("密码必须包含数字",400)
+	}
+	if !hasUpperCase{
+		return errors.New("密码必须包含大写字母",400)
+	}
+	if !hasLowercase{
+		return errors.New("密码必须包含小写字母", 400)
+	}
+	return nil
 }
