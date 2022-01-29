@@ -7,6 +7,7 @@ import (
 	"math/rand"
 	"regexp"
 	"strings"
+	"unicode"
 )
 
 var mobileReg = regexp.MustCompile(`(?:0|86|\+86)?1[3-9]\d{9}`)
@@ -63,6 +64,9 @@ func GenerateNumCode(length int) string{
 	arr := make([]byte,length)
 	for i := 0; i < length; i++ {
 		arr[i] = byte(rand.Intn(10)+'0')
+		for i==0 && arr[i]=='0'{
+			arr[i] = byte(rand.Intn(10)+'0')
+		}
 	}
 	return string(arr)
 }
@@ -77,4 +81,22 @@ func NullStringToPtr(v sql.NullString) *string {
 func Encrypt(salt, str string) string {
 	dk, _ := scrypt.Key([]byte(str), []byte(salt), 32768, 8, 1, 32)
 	return fmt.Sprintf("%x", string(dk))
+}
+
+func ValidPassword(password string) bool {
+	if len(password) < 6 {
+		return false
+	}
+	var hasNumber, hasUpperCase, hasLowercase bool
+	for _, c := range password {
+		switch {
+		case unicode.IsNumber(c):
+			hasNumber = true
+		case unicode.IsUpper(c):
+			hasUpperCase = true
+		case unicode.IsLower(c):
+			hasLowercase = true
+		}
+	}
+	return hasNumber && hasUpperCase && hasLowercase
 }
